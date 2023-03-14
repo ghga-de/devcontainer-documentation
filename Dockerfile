@@ -6,7 +6,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/python:0-3.10-bullseye
 # Install TexLive for building PDF output
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends texlive-full \
-    && apt-cache clean
+    && apt-get clean
 
 # Install OpenJDK
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends openjdk-11-jre graphviz
