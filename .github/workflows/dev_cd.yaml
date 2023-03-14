@@ -1,0 +1,35 @@
+name: Dev CD
+
+on:
+  push:
+    branches:
+      - "main"
+      # you may add other branches to
+      # activate deployment for them, too.
+
+jobs:
+
+  push_to_docker_hub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Check out code
+
+      - uses: docker/setup-qemu-action@v1
+        name: Set up QEMU
+
+      - uses: docker/setup-buildx-action@v1
+        name: Set up Docker Buildx
+
+      - uses: docker/login-action@v1
+        name: Login to DockerHub
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v2
+        name: Build and push
+        id: docker_build
+        with:
+          push: true
+          tags: "ghga/${{ github.event.repository.name }}:latest"
