@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd /workspaces/documentation
+
+rm -rf build/html-autobuild
+sphinx-autobuild source build/html-autobuild
